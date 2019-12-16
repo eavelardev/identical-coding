@@ -17,7 +17,7 @@ f = args.file
 lines = f.readlines()
 f.close()
 
-def input_line()
+def input_line():
     read = input(cli)
     read.rstrip()
     read = read.replace('\t', tab)    
