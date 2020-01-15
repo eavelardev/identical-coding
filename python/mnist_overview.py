@@ -1,4 +1,4 @@
-# https://www.tensorflow.org/tutorials/quickstart/beginner
+# https://www.tensorflow.org/overview/
 
 import tensorflow as tf
 mnist = tf.keras.datasets.mnist
@@ -18,4 +18,4 @@ model.compile(optimizer='adam',
     metrics=['accuracy'])
 
 model.fit(x_train, y_train, epochs=5)
-model.evaluate(x_test, y_test, verbose=2)
+model.evaluate(x_test, y_test)

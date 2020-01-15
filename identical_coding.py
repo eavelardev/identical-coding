@@ -17,6 +17,8 @@ f = args.file
 lines = f.readlines()
 f.close()
 
+comments = ['#', '"', '/', '*']
+
 def input_line():
     read = input(cli)
     read.rstrip()
@@ -37,7 +39,7 @@ def main():
                     print('')
                 continue
 
-            if line.startswith('#') or line.startswith('"""'):
+            if line.lstrip()[0] in comments:
                 if start_code:
                     print(info, line)
                 continue
@@ -64,12 +66,21 @@ def main():
                 break
         
         if ok:
-            opt = read = input('\nRun code? (y): ')
+            opt = input('\nRun code? (y): ')
 
             if len(opt) is 0 or opt is 'y':
                 print('')
-                exec(open(f.name).read())
+                if f.name.endswith('.py'):
+                    os.system('python ' + f.name)
+                elif f.name.endswith('.java'):
+                    os.system(f'javac {f.name}')
 
+                    dirname = os.path.dirname(f.name)
+                    basename = os.path.basename(f.name)
+                    filename = os.path.splitext(basename)[0]
+                    os.system(f'java -cp {dirname} {filename}')
+                    
+                    os.system(f'rm {os.path.splitext(f.name)[0]}.class')
             break
 
 if __name__ == '__main__':
