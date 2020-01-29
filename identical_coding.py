@@ -17,7 +17,7 @@ f = args.file
 lines = f.readlines()
 f.close()
 
-comments = ['#', '"', '/', '*']
+not_process = ['#', '"', '/', '*', 'import ', 'from ']
 
 def input_line():
     read = input(cli)
@@ -38,8 +38,14 @@ def main():
                 if start_code:
                     print('')
                 continue
+            
+            accept_line = True
+            for string in not_process:
+                if line.lstrip().startswith(string):
+                    accept_line = False
+                    break
 
-            if line.lstrip()[0] in comments:
+            if not accept_line:
                 if start_code:
                     print(info, line)
                 continue
